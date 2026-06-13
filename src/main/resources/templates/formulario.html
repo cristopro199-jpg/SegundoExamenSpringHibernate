@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Formulario Personal</title>
+</head>
+<body>
+    <h1 th:text="${personal.idpersonal != null} ? 'Editar Personal' : 'Registrar Personal'"></h1>
+    
+    <form th:action="@{/personal/guardar}" th:object="${personal}" method="POST">
+        <input type="hidden" th:field="*{idpersonal}" />
+
+        <label>Nombre:</label>
+        <input type="text" th:field="*{nombrePersonal}" required /><br><br>
+
+        <label>Código Personal:</label>
+        <input type="number" th:field="*{codigoPersonal}" required /><br><br>
+
+        <label>Área de Trabajo:</label>
+        <input type="text" th:field="*{areaTrabajo}" required /><br><br>
+
+        <label>Especialidad:</label>
+        <input type="text" th:field="*{especialidad}" required /><br><br>
+
+        <label>Tiempo de Servicio:</label>
+        <input type="text" th:field="*{tiempoServicio}" required /><br><br>
+
+        <label>Tipo de Seguro:</label>
+        <input type="text" th:field="*{tipoSeguro}" required /><br><br>
+
+		<label>Empresa:</label>
+		<select th:field="*{empresa.idempresa}" required>
+		    <option value="">-- Seleccione una Empresa --</option>
+		    <option th:each="e : ${empresas}" 
+		            th:value="${e.idempresa}" 
+		            th:text="${e.nombreEmpresa}"
+		            th:selected="${personal.empresa != null and personal.empresa.idempresa == e.idempresa}">
+		    </option>
+		</select><br><br>
+
+        <button type="submit">Guardar</button>
+        <a th:href="@{/personal/listar}">Cancelar</a>
+    </form>
+</body>
+</html>
