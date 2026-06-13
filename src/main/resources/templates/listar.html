@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Listar Personal</title>
+</head>
+<body>
+    <h1>Lista de Personal</h1>
+    <a th:href="@{/personal/nuevo}">Registrar Nuevo Personal</a>
+    <br><br>
+    <table border="1">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nombre</th>
+                <th>Código</th>
+                <th>Área Trabajo</th>
+                <th>Especialidad</th>
+                <th>Tiempo Servicio</th>
+                <th>Seguro</th>
+                <th>Empresa (ID)</th>
+                <th>Acciones</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr th:each="p : ${listaPersonal}">
+                <td th:text="${p.idpersonal}"></td>
+                <td th:text="${p.nombrePersonal}"></td>
+                <td th:text="${p.codigoPersonal}"></td>
+                <td th:text="${p.areaTrabajo}"></td>
+                <td th:text="${p.especialidad}"></td>
+                <td th:text="${p.tiempoServicio}"></td>
+                <td th:text="${p.tipoSeguro}"></td>
+                <td th:text="${p.empresa.nombreEmpresa}"></td>
+                <td>
+                    <a th:href="@{/personal/editar/{id}(id=${p.idpersonal})}">Editar</a> |
+                    <a th:href="@{/personal/eliminar/{id}(id=${p.idpersonal})}" onclick="return confirm('¿Estás seguro?')">Eliminar</a>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</body>
+</html>
